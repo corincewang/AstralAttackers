@@ -6,11 +6,25 @@ public class EnemyScript : MonoBehaviour
     public AudioClip bombDropSound, enemyExplosionSound;
     private AudioSource audioComponent;
 
-    
+    [HeaderAttribute("Enemy Swap Frames")]
+    public GameObject enemyFrame1;
+    public GameObject enemyFrame2;
+    public GameObject enemyFrameExplode;
+
+    [HeaderAttribute("Explosion Parameters")]
+    public float explosionForce;
+
+    public float explosionRadius;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         audioComponent = GetComponent<AudioSource>();
+
+        enemyFrame1.SetActive(true);
+        enemyFrame2.SetActive(false);
+        enemyFrameExplode.SetActive(false);
     }
 
     // Update is called once per frame
@@ -20,6 +34,23 @@ public class EnemyScript : MonoBehaviour
         {
             DropABomb();
         }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            SwapFrames();
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            makeExplosion();
+        }
+    }
+
+    public void SwapFrames()
+    {
+        // reverse the active values of frame1 and 2
+        enemyFrame1.SetActive(!enemyFrame1.activeSelf);
+        enemyFrame2.SetActive(!enemyFrame2.activeSelf);
     }
 
     public void DropABomb()
@@ -30,7 +61,7 @@ public class EnemyScript : MonoBehaviour
         {
             audioComponent.PlayOneShot(bombDropSound);
         }
-        
+
     }
 
     void OnCollisionEnter(Collision collision)
@@ -45,8 +76,27 @@ public class EnemyScript : MonoBehaviour
 
             //destroy bullet immediately
             Destroy(collision.gameObject);
-            
+
             Destroy(this.gameObject, 0.3f);
+
+            makeExplosion();
         }
+    }
+
+    private void makeExplosion()
+    {
+        enemyFrame1.SetActive(false);
+        enemyFrame2.SetActive(false);
+        enemyFrameExplode.SetActive(true);
+
+        Rigidbody[] enemyBlocks = GetComponentsInChildren<Rigidbody>();
+
+        foreach (Rigidbody block in enemyBlocks)
+        {
+            block.AddExplosionForce(explosionForce, (transform.position + Vector3.back + Random.onUnitSphere), explosionRadius, 0f, ForceMode.Impulse);
+        }
+        
+        // make the explode frame an orphan
+        enemyFrameExplode.transform.parent = null;
     }
 }

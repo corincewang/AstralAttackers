@@ -55,11 +55,10 @@ public class MotherShipScript : MonoBehaviour
             {
                 transform.position += sideStepVector;
                 
-                if (audioComponent != null && mothershipMoveSounds.Length > 0)
-                {
-                    audioComponent.PlayOneShot(mothershipMoveSounds[soundIndex]);
-                    soundIndex = (soundIndex + 1) % mothershipMoveSounds.Length;
-                }
+                audioComponent.PlayOneShot(mothershipMoveSounds[soundIndex]);
+                soundIndex = (soundIndex + 1) % mothershipMoveSounds.Length;
+
+                BroadcastMessage("SwapFrames");
                 
                 yield return new WaitForSeconds(GetCurrentMoveSpeed());
             }
@@ -69,10 +68,12 @@ public class MotherShipScript : MonoBehaviour
             transform.position += downStepVector;
             
             if (audioComponent != null && mothershipMoveSounds.Length > 0)
-            {
-                audioComponent.PlayOneShot(mothershipMoveSounds[soundIndex]);
-                soundIndex = (soundIndex + 1) % mothershipMoveSounds.Length;
-            }
+            
+            audioComponent.PlayOneShot(mothershipMoveSounds[soundIndex]);
+            soundIndex = (soundIndex + 1) % mothershipMoveSounds.Length;
+            
+
+            BroadcastMessage("SwapFrames");
             
             yield return new WaitForSeconds(GetCurrentMoveSpeed());
 
