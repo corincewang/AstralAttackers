@@ -5,12 +5,9 @@ public class PlayerScript : MonoBehaviour
     public float speed;
     public float offset;
     public GameObject bulletprefab;
-    public AudioClip playerFireSound, playerExplosionSound;
-    private AudioSource audioComponent;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        audioComponent = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -34,12 +31,6 @@ public class PlayerScript : MonoBehaviour
     private void FireBullet()
     {
         GameObject bulletObject = Instantiate(bulletprefab, (transform.position + Vector3.up), Quaternion.identity);
-        
-        // Play fire sound
-        if (audioComponent != null && playerFireSound != null)
-        {
-            audioComponent.PlayOneShot(playerFireSound);
-        }
 
         Destroy(bulletObject, 5f);
     }
@@ -48,7 +39,6 @@ public class PlayerScript : MonoBehaviour
     {
         if (collision.transform.tag == "EnemyBomb")
         {
-            audioComponent.PlayOneShot(playerExplosionSound); 
             Destroy(collision.gameObject); 
             Destroy(this.gameObject, 0.3f);
         }

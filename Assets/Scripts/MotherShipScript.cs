@@ -6,17 +6,13 @@ public class MotherShipScript : MonoBehaviour
     public int stepsToSide;
     public float sideStepUnits, downStepUnits;
     public float timeBetweenSteps, timeBetweenBombs;
-    public float minTimeBetweenSteps = 0.2f; 
-    public AudioClip[] mothershipMoveSounds; 
-    private AudioSource audioComponent;
+    public float minTimeBetweenSteps = 0.2f;
     private int initialEnemyCount;
-    private int soundIndex = 0;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        audioComponent = GetComponent<AudioSource>();
         initialEnemyCount = transform.childCount; 
         StartCoroutine(MoveMother());
         StartCoroutine(DropOneBomb());
@@ -55,9 +51,6 @@ public class MotherShipScript : MonoBehaviour
             {
                 transform.position += sideStepVector;
                 
-                audioComponent.PlayOneShot(mothershipMoveSounds[soundIndex]);
-                soundIndex = (soundIndex + 1) % mothershipMoveSounds.Length;
-
                 BroadcastMessage("SwapFrames");
                 
                 yield return new WaitForSeconds(GetCurrentMoveSpeed());
@@ -67,12 +60,6 @@ public class MotherShipScript : MonoBehaviour
             // move down
             transform.position += downStepVector;
             
-            if (audioComponent != null && mothershipMoveSounds.Length > 0)
-            
-            audioComponent.PlayOneShot(mothershipMoveSounds[soundIndex]);
-            soundIndex = (soundIndex + 1) % mothershipMoveSounds.Length;
-            
-
             BroadcastMessage("SwapFrames");
             
             yield return new WaitForSeconds(GetCurrentMoveSpeed());

@@ -3,8 +3,6 @@ using UnityEngine;
 public class EnemyScript : MonoBehaviour
 {
     public GameObject bombPrefab;
-    public AudioClip bombDropSound, enemyExplosionSound;
-    private AudioSource audioComponent;
 
     [HeaderAttribute("Enemy Swap Frames")]
     public GameObject enemyFrame1;
@@ -20,8 +18,6 @@ public class EnemyScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        audioComponent = GetComponent<AudioSource>();
-
         enemyFrame1.SetActive(true);
         enemyFrame2.SetActive(false);
         enemyFrameExplode.SetActive(false);
@@ -57,23 +53,12 @@ public class EnemyScript : MonoBehaviour
     {
         Instantiate(bombPrefab, (transform.position + Vector3.down), Quaternion.identity);
 
-        if (audioComponent != null && bombDropSound != null)
-        {
-            audioComponent.PlayOneShot(bombDropSound);
-        }
-
     }
 
     void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.tag == "PlayerBullet")
         {
-            //make explosion sound
-            if (audioComponent != null && enemyExplosionSound != null)
-            {
-                audioComponent.PlayOneShot(enemyExplosionSound);
-            }
-
             //destroy bullet immediately
             Destroy(collision.gameObject);
 
