@@ -77,7 +77,7 @@ public class EnemyScript : MonoBehaviour
             //destroy bullet immediately
             Destroy(collision.gameObject);
 
-            Destroy(this.gameObject, 0.3f);
+            Destroy(this.gameObject, 0.2f);
 
             makeExplosion();
         }
@@ -93,7 +93,7 @@ public class EnemyScript : MonoBehaviour
 
         foreach (Rigidbody block in enemyBlocks)
         {
-            block.AddExplosionForce(explosionForce, (transform.position + Vector3.back + Random.onUnitSphere), explosionRadius, 0f, ForceMode.Impulse);
+            block.AddExplosionForce(explosionForce, (transform.position + Vector3.back * 3f + Random.onUnitSphere), explosionRadius, 0f, ForceMode.Impulse);
         }
         
         // make the explode frame an orphan
