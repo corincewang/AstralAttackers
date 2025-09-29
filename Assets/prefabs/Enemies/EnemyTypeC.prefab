@@ -75,8 +75,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.424716, y: 4.1338654, z: 1}
-  m_Center: {x: 2.212358, y: 1.7932972, z: 0}
+  m_Size: {x: 5.424716, y: 4.237338, z: 1.0021464}
+  m_Center: {x: 2.212358, y: 1.5980287, z: -0.0089311}
 --- !u!1001 &2133794316745467759
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -195,6 +195,30 @@ PrefabInstance:
     - target: {fileID: 4231393201249017646, guid: d787981bf8b5949879b2cebfc09e7558, type: 3}
       propertyPath: m_Name
       value: EnemyTypeCExplode
+      objectReference: {fileID: 0}
+    - target: {fileID: 5981160833855546821, guid: d787981bf8b5949879b2cebfc09e7558, type: 3}
+      propertyPath: m_Size.x
+      value: 1.0059776
+      objectReference: {fileID: 0}
+    - target: {fileID: 5981160833855546821, guid: d787981bf8b5949879b2cebfc09e7558, type: 3}
+      propertyPath: m_Size.y
+      value: 1.1489849
+      objectReference: {fileID: 0}
+    - target: {fileID: 5981160833855546821, guid: d787981bf8b5949879b2cebfc09e7558, type: 3}
+      propertyPath: m_Size.z
+      value: 1.2453575
+      objectReference: {fileID: 0}
+    - target: {fileID: 5981160833855546821, guid: d787981bf8b5949879b2cebfc09e7558, type: 3}
+      propertyPath: m_Center.x
+      value: 1.0198116
+      objectReference: {fileID: 0}
+    - target: {fileID: 5981160833855546821, guid: d787981bf8b5949879b2cebfc09e7558, type: 3}
+      propertyPath: m_Center.y
+      value: 0.074492455
+      objectReference: {fileID: 0}
+    - target: {fileID: 5981160833855546821, guid: d787981bf8b5949879b2cebfc09e7558, type: 3}
+      propertyPath: m_Center.z
+      value: -0.12267876
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

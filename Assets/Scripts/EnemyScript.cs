@@ -98,5 +98,8 @@ public class EnemyScript : MonoBehaviour
         
         // make the explode frame an orphan
         enemyFrameExplode.transform.parent = null;
+        
+        // Destroy the main enemy object after explosion
+        Destroy(this.gameObject, 0.1f); // Small delay to let explosion start
     }
 }
