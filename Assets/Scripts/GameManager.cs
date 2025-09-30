@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 
     // UI Variables
     public TextMeshProUGUI messageOverlay;
+    public TextMeshProUGUI scoreDisplay;
     void Awake()
     {
         if (Gary)
@@ -58,6 +59,7 @@ public class GameManager : MonoBehaviour
     {
         score = 0;
         livesRemaining = LIVES_AT_START;
+        UpdateScoreDisplay();
 
         ResetRound();
     }
@@ -96,6 +98,21 @@ public class GameManager : MonoBehaviour
         currentMotherShip.GetComponent<MotherShipScript>().StartTheAttack();
     }
 
+    public void AddScore(int points)
+    {
+        score += points;
+        UpdateScoreDisplay();
+        UpdateScoreDisplay();
+    }
+
+    private void UpdateScoreDisplay()
+    {
+        if (scoreDisplay)
+        {
+            scoreDisplay.text = "Score: " + score;
+        }
+    }
+
     public void PlayerWasDestroyed()
     {
 
@@ -123,7 +140,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            // go to game over state
+            messageOverlay.text = "Game Over! Final Score: " + score;
         }
     }
 }

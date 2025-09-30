@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
 {
+    public int scoreValue = 10;
     public GameObject bombPrefab;
 
     [HeaderAttribute("Enemy Swap Frames")]
@@ -62,6 +63,7 @@ public class EnemyScript : MonoBehaviour
             //destroy bullet immediately
             Destroy(collision.gameObject);
 
+            GameManager.Gary.AddScore(scoreValue);
             Destroy(this.gameObject, 0.2f);
 
             makeExplosion();
