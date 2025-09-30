@@ -160,6 +160,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void EnemiesReachedGround()
+    {
+        if (state == GameState.Playing)
+        {
+            currentMotherShip.GetComponent<MotherShipScript>().StopTheAttack();
+            StartCoroutine(OopsState());
+        }
+    }
+
     public void PlayerWasDestroyed()
     {
 

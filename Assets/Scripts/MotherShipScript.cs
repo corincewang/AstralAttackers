@@ -8,6 +8,7 @@ public class MotherShipScript : MonoBehaviour
     public float timeBetweenSteps, timeBetweenBombs;
     public float minTimeBetweenSteps = 0.2f;
     private int initialEnemyCount;
+    private float GROUND_LEVEL = 2f;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -72,13 +73,18 @@ public class MotherShipScript : MonoBehaviour
             // move down
             transform.position += downStepVector;
 
+            if (transform.position.y <= GROUND_LEVEL)
+            {
+                GameManager.Gary.EnemiesReachedGround();
+                yield break; 
+            }
+
             BroadcastMessage("SwapFrames");
 
             SoundManager.Steve.MakeEnemyAdvanceSound();
 
             yield return new WaitForSeconds(GetCurrentMoveSpeed());
 
-            // switch directions
             sideStepVector.x *= -1f;
         }
     }
