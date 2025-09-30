@@ -14,8 +14,6 @@ public class MotherShipScript : MonoBehaviour
     void Start()
     {
         initialEnemyCount = transform.childCount; 
-        StartCoroutine(MoveMother());
-        StartCoroutine(DropOneBomb());
     }
 
     void Update()
@@ -39,6 +37,18 @@ public class MotherShipScript : MonoBehaviour
         return newSpeed;
     }
 
+    public void StartTheAttack()
+    {
+        StartCoroutine(MoveMother());
+        StartCoroutine(DropOneBomb());
+    }
+
+    public void StopTheAttack()
+    {
+        StopAllCoroutines();
+    }
+
+    
     public IEnumerator MoveMother()
     {
         Vector3 sideStepVector = Vector3.right * sideStepUnits;
@@ -50,20 +60,20 @@ public class MotherShipScript : MonoBehaviour
             for (int i = 0; i < stepsToSide; i++)
             {
                 transform.position += sideStepVector;
-                
+
                 BroadcastMessage("SwapFrames");
 
                 SoundManager.Steve.MakeEnemyAdvanceSound();
-                
+
                 yield return new WaitForSeconds(GetCurrentMoveSpeed());
             }
 
 
             // move down
             transform.position += downStepVector;
-            
+
             BroadcastMessage("SwapFrames");
-            
+
             SoundManager.Steve.MakeEnemyAdvanceSound();
 
             yield return new WaitForSeconds(GetCurrentMoveSpeed());

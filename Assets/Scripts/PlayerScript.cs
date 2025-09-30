@@ -13,6 +13,21 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.Gary.state == GameState.Playing)
+        {
+            movePlayer();
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                FireBullet();
+            }
+        }
+
+
+    }
+
+    private void movePlayer()
+    {
         Vector3 currentPosition = transform.position;
 
         // offset by speed * input * deltatime
@@ -21,11 +36,6 @@ public class PlayerScript : MonoBehaviour
         currentPosition.x = Mathf.Clamp(currentPosition.x, -offset, offset);
 
         transform.position = currentPosition;
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            FireBullet();
-        }
     }
 
     private void FireBullet()
@@ -34,13 +44,16 @@ public class PlayerScript : MonoBehaviour
 
         Destroy(bulletObject, 5f);
     }
-    
+
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag == "EnemyBomb")
+        if ((collision.transform.tag == "EnemyBomb") && GameManager.Gary.state == GameState.Playing)
         {
-            Destroy(collision.gameObject); 
+            GameManager.Gary.PlayerWasDestroyed();
+            SoundManager.Steve.MakePlayerExplosionSound();
+            Destroy(collision.gameObject);
             Destroy(this.gameObject, 0.3f);
         }
     }
+
 }

@@ -1,0 +1,129 @@
+using Unity.VisualScripting;
+using UnityEngine;
+using TMPro;
+using System.Collections;
+public enum GameState
+{
+    Menu, Preround, Playing, PostRound, GameOver
+}
+public class GameManager : MonoBehaviour
+{
+    private int score;
+    private int livesRemaining;
+    private int LIVES_AT_START = 5;
+    private GameObject currentMotherShip;
+
+    public static GameManager Gary;
+    public GameState state = GameState.Menu;
+    public GameObject motherShipPrefab;
+
+    // UI Variables
+    public TextMeshProUGUI messageOverlay;
+    void Awake()
+    {
+        if (Gary)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Gary = this;
+        }
+    }
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        GoToMenu();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (state == GameState.Menu && (Input.GetKeyDown(KeyCode.S)))
+        {
+            StartANewGame();
+        }
+    }
+
+    private void GoToMenu()
+    {
+        state = GameState.Menu;
+
+        messageOverlay.enabled = true;
+        messageOverlay.text = "Press \"S\" to Start";
+    }
+
+    private void StartANewGame()
+    {
+        score = 0;
+        livesRemaining = LIVES_AT_START;
+
+        ResetRound();
+    }
+
+    private void ResetRound()
+    {
+
+        if (currentMotherShip)
+        {
+            Destroy(currentMotherShip);
+        }
+        currentMotherShip = Instantiate(motherShipPrefab);
+        StartCoroutine(GetReady());
+    }
+
+    private IEnumerator GetReady()
+    {
+        state = GameState.Preround;
+
+        messageOverlay.enabled = true;
+        messageOverlay.text = "Get Ready!!!";
+
+        SoundManager.Steve.StartTheMusic();
+
+        yield return new WaitForSeconds(3.0f);
+
+        messageOverlay.enabled = false;
+
+        StartRound();
+    }
+
+    private void StartRound()
+    {
+        state = GameState.Playing;
+
+        currentMotherShip.GetComponent<MotherShipScript>().StartTheAttack();
+    }
+
+    public void PlayerWasDestroyed()
+    {
+
+        SoundManager.Steve.PlayerExplosionSequence();
+
+        currentMotherShip.GetComponent<MotherShipScript>().StopTheAttack();
+
+        StartCoroutine(OopsState());
+
+    }
+
+    private IEnumerator OopsState()
+    {
+        state = GameState.PostRound;
+        livesRemaining--;
+
+        messageOverlay.enabled = true;
+        messageOverlay.text = "You Failed.";
+
+        yield return new WaitForSeconds(2f);
+
+        if (livesRemaining > 0)
+        {
+            ResetRound();
+        }
+        else
+        {
+            // go to game over state
+        }
+    }
+}
