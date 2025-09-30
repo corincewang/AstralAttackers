@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     // UI Variables
     public TextMeshProUGUI messageOverlay;
     public TextMeshProUGUI scoreDisplay;
+    public TextMeshProUGUI livesDisplay;
     void Awake()
     {
         if (Gary)
@@ -60,6 +61,7 @@ public class GameManager : MonoBehaviour
         score = 0;
         livesRemaining = LIVES_AT_START;
         UpdateScoreDisplay();
+        UpdateLivesDisplay();
 
         ResetRound();
     }
@@ -102,7 +104,6 @@ public class GameManager : MonoBehaviour
     {
         score += points;
         UpdateScoreDisplay();
-        UpdateScoreDisplay();
     }
 
     private void UpdateScoreDisplay()
@@ -110,6 +111,14 @@ public class GameManager : MonoBehaviour
         if (scoreDisplay)
         {
             scoreDisplay.text = "Score: " + score;
+        }
+    }
+
+    private void UpdateLivesDisplay()
+    {
+        if (livesDisplay)
+        {
+            livesDisplay.text = "Lives: " + livesRemaining;
         }
     }
 
@@ -128,6 +137,7 @@ public class GameManager : MonoBehaviour
     {
         state = GameState.PostRound;
         livesRemaining--;
+        UpdateLivesDisplay();
 
         messageOverlay.enabled = true;
         messageOverlay.text = "You Failed.";
