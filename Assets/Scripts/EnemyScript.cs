@@ -59,7 +59,7 @@ public class EnemyScript : MonoBehaviour
     
     private IEnumerator TrackBombForGroundHit(GameObject bomb)
     {
-        float groundLevel = 0.26f; 
+        float groundLevel = 0.5f; 
         bool hasReachedGround = false;
         
         while (bomb != null)
@@ -69,7 +69,7 @@ public class EnemyScript : MonoBehaviour
             if (!hasReachedGround && currentY <= groundLevel)
             {
                 hasReachedGround = true;
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(1f);
                 
                 if (bomb != null) 
                 {
