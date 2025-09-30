@@ -48,9 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7804ca6e5ed846adb2d40b29fe79184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreValue: 10
   bombPrefab: {fileID: 1369420380825938344, guid: b0c73f63ab0a74998b38c5512faa180c, type: 3}
-  bombDropSound: {fileID: 8300000, guid: 62291bf0dd486490a965167fd8aa508e, type: 3}
-  enemyExplosionSound: {fileID: 8300000, guid: fd4a9ca212824442b8ebe0c77dcfab12, type: 3}
   enemyFrame1: {fileID: 953413548940752235}
   enemyFrame2: {fileID: 2680972099290532783}
   enemyFrameExplode: {fileID: 6958262436822113228}
@@ -75,8 +74,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.341665, y: 5.456464, z: 0.53608465}
-  m_Center: {x: -0.49822164, y: -0.18604374, z: -0.09264588}
+  m_Size: {x: 5.8145294, y: 5.731107, z: 0.53608465}
+  m_Center: {x: -0.45579052, y: -0.32336545, z: -0.09264588}
 --- !u!1001 &1174008948899022463
 PrefabInstance:
   m_ObjectHideFlags: 0
