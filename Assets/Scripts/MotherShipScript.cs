@@ -27,7 +27,6 @@ public class MotherShipScript : MonoBehaviour
         int currentEnemyCount = transform.childCount;
         int enemiesDestroyed = initialEnemyCount - currentEnemyCount;
         
-        // For every enemy destroyed, reduce wait time by a fixed amount
         float speedBoost = enemiesDestroyed * 0.05f; 
         
         float newSpeed = timeBetweenSteps - speedBoost;
