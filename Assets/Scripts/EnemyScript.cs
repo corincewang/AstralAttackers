@@ -65,6 +65,8 @@ public class EnemyScript : MonoBehaviour
             Destroy(this.gameObject, 0.2f);
 
             makeExplosion();
+
+            SoundManager.Steve.MakeEnemyExplosionSound();
         }
     }
 

@@ -52,6 +52,8 @@ public class MotherShipScript : MonoBehaviour
                 transform.position += sideStepVector;
                 
                 BroadcastMessage("SwapFrames");
+
+                SoundManager.Steve.MakeEnemyAdvanceSound();
                 
                 yield return new WaitForSeconds(GetCurrentMoveSpeed());
             }
@@ -62,6 +64,8 @@ public class MotherShipScript : MonoBehaviour
             
             BroadcastMessage("SwapFrames");
             
+            SoundManager.Steve.MakeEnemyAdvanceSound();
+
             yield return new WaitForSeconds(GetCurrentMoveSpeed());
 
             // switch directions
