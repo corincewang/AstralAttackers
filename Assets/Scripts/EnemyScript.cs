@@ -121,5 +121,7 @@ public class EnemyScript : MonoBehaviour
         GameManager.Gary.ScheduleEnemyCheck();
         
         Destroy(this.gameObject, 0.1f);
+
+        Destroy(enemyFrameExplode, 5f);
     }
 }
