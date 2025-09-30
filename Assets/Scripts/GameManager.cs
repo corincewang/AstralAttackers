@@ -149,13 +149,8 @@ public class GameManager : MonoBehaviour
             
             if (childCount == 0)
             {
-                state = GameState.PostRound;
                 currentMotherShip.GetComponent<MotherShipScript>().StopTheAttack();
-                messageOverlay.enabled = true;
-                messageOverlay.text = "You Win! Final Score: " + score;
-                
-                yield return new WaitForSeconds(3f);
-                GoToMenu();
+                StartCoroutine(GameOverWinState());
             }
         }
     }
@@ -180,6 +175,36 @@ public class GameManager : MonoBehaviour
 
     }
 
+    private IEnumerator GameOverWinState()
+    {
+        state = GameState.GameOver;
+        
+        messageOverlay.enabled = true;
+        messageOverlay.text = "You Win! \nFinal Score: " + score + "\nPress R to Restart";
+        
+        while (!Input.GetKeyDown(KeyCode.R))
+        {
+            yield return null;
+        }
+        
+        StartANewGame();
+    }
+    
+    private IEnumerator GameOverLoseState()
+    {
+        state = GameState.GameOver;
+        
+        messageOverlay.enabled = true;
+        messageOverlay.text = "Game Over! \nFinal Score: " + score + "\nPress R to Restart";
+        
+        while (!Input.GetKeyDown(KeyCode.R))
+        {
+            yield return null;
+        }
+        
+        StartANewGame();
+    }
+
     private IEnumerator OopsState()
     {
         state = GameState.PostRound;
@@ -197,7 +222,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            messageOverlay.text = "Game Over! Final Score: " + score;
+            StartCoroutine(GameOverLoseState());
         }
     }
 }
