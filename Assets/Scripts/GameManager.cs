@@ -12,10 +12,12 @@ public class GameManager : MonoBehaviour
     private int livesRemaining;
     private int LIVES_AT_START = 5;
     private GameObject currentMotherShip;
+    private GameObject currentPlayer;
 
     public static GameManager Gary;
     public GameState state = GameState.Menu;
     public GameObject motherShipPrefab;
+    public GameObject playerPrefab;
 
     // UI Variables
     public TextMeshProUGUI messageOverlay;
@@ -68,12 +70,22 @@ public class GameManager : MonoBehaviour
 
     private void ResetRound()
     {
-
+        // Destroy existing mothership if any
         if (currentMotherShip)
         {
             Destroy(currentMotherShip);
         }
+        
+        // Destroy existing player if any
+        if (currentPlayer)
+        {
+            Destroy(currentPlayer);
+        }
+        
+        //  new mothership and player
         currentMotherShip = Instantiate(motherShipPrefab);
+        currentPlayer = Instantiate(playerPrefab);
+        
         StartCoroutine(GetReady());
     }
 
