@@ -8,7 +8,7 @@ public class MotherShipScript : MonoBehaviour
     public float timeBetweenSteps, timeBetweenBombs;
     public float minTimeBetweenSteps = 0.2f;
     private int initialEnemyCount;
-    private float GROUND_LEVEL = 2f;
+    public float GROUND_LEVEL = 2f;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

@@ -53,8 +53,33 @@ public class EnemyScript : MonoBehaviour
 
     public void DropABomb()
     {
-        Instantiate(bombPrefab, (transform.position + Vector3.down), Quaternion.identity);
-
+        GameObject bomb = Instantiate(bombPrefab, (transform.position + Vector3.down), Quaternion.identity);
+        StartCoroutine(TrackBombForGroundHit(bomb));
+    }
+    
+    private IEnumerator TrackBombForGroundHit(GameObject bomb)
+    {
+        float groundLevel = 0.26f; 
+        bool hasReachedGround = false;
+        
+        while (bomb != null)
+        {
+            float currentY = bomb.transform.position.y;
+            
+            if (!hasReachedGround && currentY <= groundLevel)
+            {
+                hasReachedGround = true;
+                yield return new WaitForSeconds(2f);
+                
+                if (bomb != null) 
+                {
+                    Destroy(bomb);
+                }
+                yield break;
+            }
+            
+            yield return null;
+        }
     }
 
     void OnCollisionEnter(Collision collision)
