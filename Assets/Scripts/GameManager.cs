@@ -134,6 +134,32 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ScheduleEnemyCheck()
+    {
+        StartCoroutine(CheckAndHandleWinCondition());
+    }
+    
+    private IEnumerator CheckAndHandleWinCondition()
+    {
+        yield return new WaitForSeconds(0.2f);
+        
+        if (state == GameState.Playing && currentMotherShip)
+        {
+            int childCount = currentMotherShip.transform.childCount;
+            
+            if (childCount == 0)
+            {
+                state = GameState.PostRound;
+                currentMotherShip.GetComponent<MotherShipScript>().StopTheAttack();
+                messageOverlay.enabled = true;
+                messageOverlay.text = "You Win! Final Score: " + score;
+                
+                yield return new WaitForSeconds(3f);
+                GoToMenu();
+            }
+        }
+    }
+
     public void PlayerWasDestroyed()
     {
 

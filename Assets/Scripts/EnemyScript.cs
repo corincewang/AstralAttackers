@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class EnemyScript : MonoBehaviour
 {
@@ -87,8 +88,10 @@ public class EnemyScript : MonoBehaviour
         
         // make the explode frame an orphan
         enemyFrameExplode.transform.parent = null;
+
+
+        GameManager.Gary.ScheduleEnemyCheck();
         
-        // Destroy the main enemy object after explosion
-        Destroy(this.gameObject, 0.1f); // Small delay to let explosion start
+        Destroy(this.gameObject, 0.1f);
     }
 }
