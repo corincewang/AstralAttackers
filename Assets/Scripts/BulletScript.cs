@@ -20,6 +20,11 @@ public class BulletScript : MonoBehaviour
             Destroy(collision.gameObject); 
             Destroy(this.gameObject); 
         }
-    
+        
+        if (collision.transform.tag == "Moon")
+        {
+            GameManager.Gary.MoonWasShot(collision.gameObject);
+            Destroy(this.gameObject);
+        }
     }
 }

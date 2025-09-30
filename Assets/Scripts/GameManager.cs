@@ -13,11 +13,15 @@ public class GameManager : MonoBehaviour
     private int LIVES_AT_START = 5;
     private GameObject currentMotherShip;
     private GameObject currentPlayer;
+    private GameObject currentMoon;
+    private bool moonUsed = false;
 
     public static GameManager Gary;
     public GameState state = GameState.Menu;
     public GameObject motherShipPrefab;
     public GameObject playerPrefab;
+    public GameObject moonPrefab;
+    public Vector3 moonStartPosition;
 
     // UI Variables
     public TextMeshProUGUI messageOverlay;
@@ -62,6 +66,7 @@ public class GameManager : MonoBehaviour
     {
         score = 0;
         livesRemaining = LIVES_AT_START;
+        moonUsed = false;
         UpdateScoreDisplay();
         UpdateLivesDisplay();
 
@@ -70,21 +75,28 @@ public class GameManager : MonoBehaviour
 
     private void ResetRound()
     {
-        // Destroy existing mothership if any
         if (currentMotherShip)
         {
             Destroy(currentMotherShip);
         }
         
-        // Destroy existing player if any
         if (currentPlayer)
         {
             Destroy(currentPlayer);
         }
         
-        //  new mothership and player
+        if (currentMoon)
+        {
+            Destroy(currentMoon);
+        }
+        
         currentMotherShip = Instantiate(motherShipPrefab);
         currentPlayer = Instantiate(playerPrefab);
+        
+        if (!moonUsed)
+        {
+            currentMoon = Instantiate(moonPrefab, moonStartPosition, Quaternion.identity);
+        }
         
         StartCoroutine(GetReady());
     }
@@ -132,6 +144,18 @@ public class GameManager : MonoBehaviour
         {
             livesDisplay.text = "Lives: " + livesRemaining;
         }
+    }
+    
+    public void MoonWasShot(GameObject moonObject)
+    {
+        if (moonUsed) return;
+        
+        moonUsed = true;
+        livesRemaining++;
+        UpdateLivesDisplay();
+        SoundManager.Steve.MakeHappySound();
+        currentMoon = null;
+        Destroy(moonObject);
     }
 
     public void ScheduleEnemyCheck()

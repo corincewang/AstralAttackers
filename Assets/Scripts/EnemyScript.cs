@@ -54,6 +54,9 @@ public class EnemyScript : MonoBehaviour
     public void DropABomb()
     {
         GameObject bomb = Instantiate(bombPrefab, (transform.position + Vector3.down), Quaternion.identity);
+        
+        Destroy(bomb, 5f);
+        
         StartCoroutine(TrackBombForGroundHit(bomb));
     }
     

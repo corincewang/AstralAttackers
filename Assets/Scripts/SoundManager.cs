@@ -8,6 +8,7 @@ public class SoundManager : MonoBehaviour
     public AudioSource backgroundMusic;
     public AudioClip enemyAdvanceSound;
     public AudioClip playerExplosion;
+    public AudioClip happySound; 
     public GameObject enemyExplosionSoundPrefab;
     private AudioSource thisAudio;
     private void Awake()
@@ -35,6 +36,13 @@ public class SoundManager : MonoBehaviour
     public void MakePlayerExplosionSound()
     {
         thisAudio.PlayOneShot(playerExplosion);
+    }
+    
+    public void MakeHappySound()
+    {
+
+        thisAudio.PlayOneShot(happySound);
+        
     }
 
     public void StartTheMusic()
