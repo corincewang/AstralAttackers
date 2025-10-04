@@ -58,8 +58,11 @@ public class GameManager : MonoBehaviour
     {
         state = GameState.Menu;
 
-        messageOverlay.enabled = true;
-        messageOverlay.text = "Press \"S\" to Start";
+        if (messageOverlay)
+        {
+            messageOverlay.enabled = true;
+            messageOverlay.text = "Press \"S\" to Start";
+        }
     }
 
     private void StartANewGame()
@@ -90,10 +93,10 @@ public class GameManager : MonoBehaviour
             Destroy(currentMoon);
         }
         
-        currentMotherShip = Instantiate(motherShipPrefab);
-        currentPlayer = Instantiate(playerPrefab);
+        if (motherShipPrefab) currentMotherShip = Instantiate(motherShipPrefab);
+        if (playerPrefab) currentPlayer = Instantiate(playerPrefab);
         
-        if (!moonUsed)
+        if (!moonUsed && moonPrefab)
         {
             currentMoon = Instantiate(moonPrefab, moonStartPosition, Quaternion.identity);
         }
@@ -105,14 +108,17 @@ public class GameManager : MonoBehaviour
     {
         state = GameState.Preround;
 
-        messageOverlay.enabled = true;
-        messageOverlay.text = "Get Ready!!!";
+        if (messageOverlay)
+        {
+            messageOverlay.enabled = true;
+            messageOverlay.text = "Get Ready!!!";
+        }
 
-        SoundManager.Steve.StartTheMusic();
+        if (SoundManager.Steve) SoundManager.Steve.StartTheMusic();
 
         yield return new WaitForSeconds(3.0f);
 
-        messageOverlay.enabled = false;
+        if (messageOverlay) messageOverlay.enabled = false;
 
         StartRound();
     }
@@ -203,8 +209,11 @@ public class GameManager : MonoBehaviour
     {
         state = GameState.GameOver;
         
-        messageOverlay.enabled = true;
-        messageOverlay.text = "You Win! \nFinal Score: " + score + "\nPress R to Restart";
+        if (messageOverlay)
+        {
+            messageOverlay.enabled = true;
+            messageOverlay.text = "You Win! \nFinal Score: " + score + "\nPress R to Restart";
+        }
         
         while (!Input.GetKeyDown(KeyCode.R))
         {
@@ -218,8 +227,11 @@ public class GameManager : MonoBehaviour
     {
         state = GameState.GameOver;
         
-        messageOverlay.enabled = true;
-        messageOverlay.text = "Game Over! \nFinal Score: " + score + "\nPress R to Restart";
+        if (messageOverlay)
+        {
+            messageOverlay.enabled = true;
+            messageOverlay.text = "Game Over! \nFinal Score: " + score + "\nPress R to Restart";
+        }
         
         while (!Input.GetKeyDown(KeyCode.R))
         {
@@ -235,8 +247,11 @@ public class GameManager : MonoBehaviour
         livesRemaining--;
         UpdateLivesDisplay();
 
-        messageOverlay.enabled = true;
-        messageOverlay.text = "You Failed.";
+        if (messageOverlay)
+        {
+            messageOverlay.enabled = true;
+            messageOverlay.text = "You Failed.";
+        }
 
         yield return new WaitForSeconds(2f);
 
