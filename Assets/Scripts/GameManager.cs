@@ -11,14 +11,13 @@ public class GameManager : MonoBehaviour
     private int score;
     private int livesRemaining;
     private int LIVES_AT_START = 5;
-    private GameObject currentMotherShip;
+    private MotherShipScript currentMotherShip;
     private GameObject currentPlayer;
     private GameObject currentMoon;
     private bool moonUsed = false;
 
     public static GameManager Gary;
     public GameState state = GameState.Menu;
-    public GameObject motherShipPrefab;
     public GameObject playerPrefab;
     public GameObject moonPrefab;
     public Vector3 moonStartPosition;
@@ -27,6 +26,10 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI messageOverlay;
     public TextMeshProUGUI scoreDisplay;
     public TextMeshProUGUI livesDisplay;
+
+    // level info
+    public string currentLevel;
+
     void Awake()
     {
         if (Gary)
@@ -36,77 +39,61 @@ public class GameManager : MonoBehaviour
         else
         {
             Gary = this;
+            DontDestroyOnLoad(this.gameObject);
         }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        GoToMenu();
+        StartANewGame();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (state == GameState.Menu && (Input.GetKeyDown(KeyCode.S)))
-        {
-            StartANewGame();
-        }
-    }
-
-    private void GoToMenu()
-    {
-        state = GameState.Menu;
-
-        if (messageOverlay)
-        {
-            messageOverlay.enabled = true;
-            messageOverlay.text = "Press \"S\" to Start";
-        }
+        // if (state == GameState.Menu && (Input.GetKeyDown(KeyCode.S)))
+        // {
+        //     StartANewGame();
+        // }
     }
 
     private void StartANewGame()
     {
+        state = GameState.Menu;
+        SoundManager.Steve.StopTheMusic();
+
         score = 0;
         livesRemaining = LIVES_AT_START;
         moonUsed = false;
         UpdateScoreDisplay();
         UpdateLivesDisplay();
 
-        ResetRound();
+        // ResetRound();
     }
 
-    private void ResetRound()
+    public void LevelStarted()
     {
-        if (currentMotherShip)
-        {
-            Destroy(currentMotherShip);
-        }
-        
-        if (currentPlayer)
-        {
-            Destroy(currentPlayer);
-        }
-        
-        if (currentMoon)
-        {
-            Destroy(currentMoon);
-        }
-        
-        if (motherShipPrefab) currentMotherShip = Instantiate(motherShipPrefab);
-        if (playerPrefab) currentPlayer = Instantiate(playerPrefab);
-        
-        if (!moonUsed && moonPrefab)
-        {
-            currentMoon = Instantiate(moonPrefab, moonStartPosition, Quaternion.identity);
-        }
-        
+        currentMotherShip = FindFirstObjectByType<MotherShipScript>();
+        currentPlayer = FindFirstObjectByType<PlayerScript>().gameObject;
         StartCoroutine(GetReady());
     }
+
+  
 
     private IEnumerator GetReady()
     {
         state = GameState.Preround;
+
+        if (currentLevel != LevelManager.Larry.levelName)
+        {
+            messageOverlay.enabled = true;
+            messageOverlay.text = LevelManager.Larry.levelName;
+
+            yield return new WaitForSeconds(2f);
+
+            currentLevel = LevelManager.Larry.levelName;
+        }
 
         if (messageOverlay)
         {
@@ -127,13 +114,14 @@ public class GameManager : MonoBehaviour
     {
         state = GameState.Playing;
 
-        currentMotherShip.GetComponent<MotherShipScript>().StartTheAttack();
+        currentMotherShip.StartTheAttack();
     }
 
     public void AddScore(int points)
     {
         score += points;
         UpdateScoreDisplay();
+
     }
 
     private void UpdateScoreDisplay()
@@ -151,11 +139,11 @@ public class GameManager : MonoBehaviour
             livesDisplay.text = "Lives: " + livesRemaining;
         }
     }
-    
+
     public void MoonWasShot(GameObject moonObject)
     {
         if (moonUsed) return;
-        
+
         moonUsed = true;
         livesRemaining++;
         UpdateLivesDisplay();
@@ -168,19 +156,20 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(CheckAndHandleWinCondition());
     }
-    
+
     private IEnumerator CheckAndHandleWinCondition()
     {
         yield return new WaitForSeconds(0.2f);
-        
+
         if (state == GameState.Playing && currentMotherShip)
         {
             int childCount = currentMotherShip.transform.childCount;
-            
+
             if (childCount == 0)
             {
-                currentMotherShip.GetComponent<MotherShipScript>().StopTheAttack();
+                currentMotherShip.StopTheAttack();
                 StartCoroutine(GameOverWinState());
+                
             }
         }
     }
@@ -189,7 +178,7 @@ public class GameManager : MonoBehaviour
     {
         if (state == GameState.Playing)
         {
-            currentMotherShip.GetComponent<MotherShipScript>().StopTheAttack();
+            currentMotherShip.StopTheAttack();
             StartCoroutine(OopsState());
         }
     }
@@ -199,7 +188,7 @@ public class GameManager : MonoBehaviour
 
         SoundManager.Steve.PlayerExplosionSequence();
 
-        currentMotherShip.GetComponent<MotherShipScript>().StopTheAttack();
+        currentMotherShip.StopTheAttack();
 
         StartCoroutine(OopsState());
 
@@ -208,36 +197,33 @@ public class GameManager : MonoBehaviour
     private IEnumerator GameOverWinState()
     {
         state = GameState.GameOver;
-        
+
         if (messageOverlay)
         {
             messageOverlay.enabled = true;
             messageOverlay.text = "You Win! \nFinal Score: " + score + "\nPress R to Restart";
         }
-        
-        while (!Input.GetKeyDown(KeyCode.R))
-        {
-            yield return null;
-        }
-        
-        StartANewGame();
-    }
+
+        yield return null;
     
+        StartCoroutine(RoundWin());
+    }
+
     private IEnumerator GameOverLoseState()
     {
         state = GameState.GameOver;
-        
+
         if (messageOverlay)
         {
             messageOverlay.enabled = true;
             messageOverlay.text = "Game Over! \nFinal Score: " + score + "\nPress R to Restart";
         }
-        
+
         while (!Input.GetKeyDown(KeyCode.R))
         {
             yield return null;
         }
-        
+
         StartANewGame();
     }
 
@@ -257,11 +243,22 @@ public class GameManager : MonoBehaviour
 
         if (livesRemaining > 0)
         {
-            ResetRound();
+            // ResetRound();
+            LevelManager.Larry.ReloadLevel();
         }
         else
         {
             StartCoroutine(GameOverLoseState());
         }
+    }
+
+    private IEnumerator RoundWin()
+    {
+        state = GameState.PostRound;
+        messageOverlay.enabled = true;
+        messageOverlay.text = "Round Cleared!!";
+
+        yield return new WaitForSeconds(2f);
+        LevelManager.Larry.GoToNextLevel();
     }
 }

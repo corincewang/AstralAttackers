@@ -121,6 +121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d3e6efb38ff24272916384cf0098975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 25
+  speed: 35
   offset: 20
   bulletprefab: {fileID: 5409311881913999808, guid: d56989c7bd5d440b09f3501ffc1ef944, type: 3}
