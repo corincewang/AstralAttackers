@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 {
     private int score;
     private int livesRemaining;
-    private int LIVES_AT_START = 5;
+    private int LIVES_AT_START = 3;
     private MotherShipScript currentMotherShip;
     private GameObject currentPlayer;
     private GameObject currentMoon;
