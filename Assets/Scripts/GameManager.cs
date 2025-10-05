@@ -76,6 +76,12 @@ public class GameManager : MonoBehaviour
     {
         currentMotherShip = FindFirstObjectByType<MotherShipScript>();
         currentPlayer = FindFirstObjectByType<PlayerScript>().gameObject;
+        
+        if (currentMoon == null)
+        {
+            currentMoon = Instantiate(moonPrefab, moonStartPosition, Quaternion.identity);
+        }
+        
         StartCoroutine(GetReady());
     }
 
