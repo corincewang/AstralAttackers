@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8021882129974503186, guid: 7178d3067f57b40ee84b56e408d302d4, type: 3}
       propertyPath: m_Name
-      value: EnemyTypeD Variant
+      value: EnemyTypeD
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
