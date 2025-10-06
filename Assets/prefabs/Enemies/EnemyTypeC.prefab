@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6097404420600005924}
   - component: {fileID: 7249044368337576216}
   - component: {fileID: 134789885440331797}
+  - component: {fileID: 217423556604849487}
   m_Layer: 0
   m_Name: EnemyTypeC
   m_TagString: Enemy
@@ -50,6 +51,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreValue: 15
   bombPrefab: {fileID: 1369420380825938344, guid: b0c73f63ab0a74998b38c5512faa180c, type: 3}
+  maxHealth: 2
+  currentHealth: 0
+  isTypeC: 1
   enemyFrame1: {fileID: 2820431023818356801}
   enemyFrame2: {fileID: 2802225360147887398}
   enemyFrameExplode: {fileID: 7834640969030233183}
@@ -74,8 +78,20 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.5018787, y: 4.448609, z: 1.0784149}
-  m_Center: {x: 2.1737766, y: 1.6359255, z: 0.039207473}
+  m_Size: {x: 5.4669294, y: 4.377785, z: 1.0535094}
+  m_Center: {x: 2.1912513, y: 1.6713374, z: 0.026754737}
+--- !u!114 &217423556604849487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6772450486472955415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06a8b8ea4b2cd42afbc8844d0e290bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2133794316745467759
 PrefabInstance:
   m_ObjectHideFlags: 0
