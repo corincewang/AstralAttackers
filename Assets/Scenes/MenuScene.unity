@@ -2640,7 +2640,7 @@ MonoBehaviour:
   playerExplosion: {fileID: 8300000, guid: 7e26c9daf4c32483b9c2790e662d3f1b, type: 3}
   happySound: {fileID: 8300000, guid: 7478151cf36724a7dada558f746c3633, type: 3}
   enemyExplosionSoundPrefab: {fileID: 1630836690310529211, guid: 6663516fab107484bbeb80b6edddd721, type: 3}
-  bossMusic: {fileID: 0}
+  bossMusic: {fileID: 8300000, guid: 20ba850bbd2700f4db1473730e13c862, type: 3}
 --- !u!65 &1550763863
 BoxCollider:
   m_ObjectHideFlags: 0

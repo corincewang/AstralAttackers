@@ -17,8 +17,9 @@ public class SoundManager : MonoBehaviour
     private AudioSource thisAudio;
     private void Awake()
     {
-        if (Steve)
+        if (Steve && Steve != this)
         {
+            Debug.Log("Destroying duplicate SoundManager");
             Destroy(this.gameObject);
         }
         else
@@ -79,6 +80,7 @@ public class SoundManager : MonoBehaviour
     {
         if (bossMusic != null && backgroundMusicSource != null)
         {
+            backgroundMusicSource.Stop();
             backgroundMusicSource.clip = bossMusic;
             backgroundMusicSource.Play();
         }

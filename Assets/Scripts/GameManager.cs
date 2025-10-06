@@ -66,10 +66,19 @@ public class GameManager : MonoBehaviour
         score = 0;
         livesRemaining = LIVES_AT_START;
         moonUsed = false;
+        currentLevel = "";
+        
         UpdateScoreDisplay();
         UpdateLivesDisplay();
-
-        // ResetRound();
+        
+        if (currentMotherShip != null)
+        {
+            currentMotherShip.StopTheAttack();
+        }
+        if (currentMoon != null)
+        {
+            Destroy(currentMoon);
+        }
     }
 
     public void LevelStarted()
@@ -243,6 +252,27 @@ public class GameManager : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene("MenuScene");
     }
     
+    public void ResetGameState()
+    {
+        score = 0;
+        livesRemaining = LIVES_AT_START;
+        moonUsed = false;
+        currentLevel = "";
+        state = GameState.Menu;
+        
+        UpdateScoreDisplay();
+        UpdateLivesDisplay();
+        
+        if (currentMotherShip != null)
+        {
+            currentMotherShip.StopTheAttack();
+        }
+        if (currentMoon != null)
+        {
+            Destroy(currentMoon);
+        }
+    }
+    
 
     private IEnumerator GameOverLoseState()
     {
@@ -254,7 +284,7 @@ public class GameManager : MonoBehaviour
             messageOverlay.text = "Game Over! \nScore: " + score;
         }
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
         
         if (messageOverlay)
         {

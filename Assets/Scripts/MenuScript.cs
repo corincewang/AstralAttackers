@@ -9,6 +9,10 @@ public class MenuScript : MonoBehaviour
     }
     public void btn_StartTheGame()
     {
+        if (GameManager.Gary != null)
+        {
+            GameManager.Gary.ResetGameState();
+        }
         SceneManager.LoadScene("Level01");
     }
     
