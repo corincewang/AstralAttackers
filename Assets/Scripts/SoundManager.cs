@@ -10,6 +10,9 @@ public class SoundManager : MonoBehaviour
     public AudioClip playerExplosion;
     public AudioClip happySound; 
     public GameObject enemyExplosionSoundPrefab;
+    
+
+    public AudioClip bossMusic;
     private AudioSource thisAudio;
     private void Awake()
     {
@@ -53,6 +56,15 @@ public class SoundManager : MonoBehaviour
     public void StopTheMusic()
     {
         backgroundMusic.Stop();
+    }
+    
+    public void StartBossMusic()
+    {
+        if (bossMusic != null)
+        {
+            backgroundMusic.clip = bossMusic;
+            backgroundMusic.Play();
+        }
     }
 
     public void PlayerExplosionSequence()

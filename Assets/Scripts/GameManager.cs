@@ -108,7 +108,17 @@ public class GameManager : MonoBehaviour
             messageOverlay.text = "Get Ready!!!";
         }
 
-        if (SoundManager.Steve) SoundManager.Steve.StartTheMusic();
+        if (SoundManager.Steve)
+        {
+            if (LevelManager.Larry.levelName == "Level03")
+            {
+                SoundManager.Steve.StartBossMusic();
+            }
+            else
+            {
+                SoundManager.Steve.StartTheMusic();
+            }
+        }
 
         yield return new WaitForSeconds(3.0f);
 
@@ -162,6 +172,18 @@ public class GameManager : MonoBehaviour
     public void ScheduleEnemyCheck()
     {
         StartCoroutine(CheckAndHandleWinCondition());
+    }
+    
+    public void TriggerBossWin()
+    {
+        if (state == GameState.Playing)
+        {
+            if (currentMotherShip)
+            {
+                currentMotherShip.StopTheAttack();
+            }
+            StartCoroutine(GameOverWinState());
+        }
     }
 
     private IEnumerator CheckAndHandleWinCondition()
