@@ -1625,7 +1625,7 @@ Transform:
   m_GameObject: {fileID: 977277001}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.17596926, z: -0, w: 0.9843957}
-  m_LocalPosition: {x: -21.41, y: -1.5, z: -17.36}
+  m_LocalPosition: {x: -21.41, y: -1.2, z: -17.36}
   m_LocalScale: {x: -1.04, y: -2.3, z: -1.5627224}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1971,7 +1971,7 @@ MonoBehaviour:
   playerExplosion: {fileID: 8300000, guid: 7e26c9daf4c32483b9c2790e662d3f1b, type: 3}
   happySound: {fileID: 8300000, guid: 7478151cf36724a7dada558f746c3633, type: 3}
   enemyExplosionSoundPrefab: {fileID: 1630836690310529211, guid: 6663516fab107484bbeb80b6edddd721, type: 3}
-  bossMusic: {fileID: 0}
+  bossMusic: {fileID: 8300000, guid: 20ba850bbd2700f4db1473730e13c862, type: 3}
 --- !u!65 &1550763863
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2074,7 +2074,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: bfcfd03d90f6e40e485afc63229582e1, type: 3}
+  m_Resource: {fileID: 8300000, guid: ce2bdc71de8221046b5109f02c551f46, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.75
   m_Pitch: 1

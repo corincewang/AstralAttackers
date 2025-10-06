@@ -57,7 +57,11 @@ public class GameManager : MonoBehaviour
     private void StartANewGame()
     {
         state = GameState.Menu;
-        SoundManager.Steve.StopTheMusic();
+        
+        if (SoundManager.Steve)
+        {
+            SoundManager.Steve.StopTheMusic();
+        }
 
         score = 0;
         livesRemaining = LIVES_AT_START;
@@ -251,6 +255,11 @@ public class GameManager : MonoBehaviour
         }
 
         yield return new WaitForSeconds(5f);
+        
+        if (messageOverlay)
+        {
+            messageOverlay.enabled = false;
+        }
         
         UnityEngine.SceneManagement.SceneManager.LoadScene("GameOverScene");
     }

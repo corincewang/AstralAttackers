@@ -5,7 +5,8 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Steve;
     [Header("Sound Resouces")]
 
-    public AudioSource backgroundMusic;
+    public AudioClip backgroundMusic;
+    private AudioSource backgroundMusicSource;
     public AudioClip enemyAdvanceSound;
     public AudioClip playerExplosion;
     public AudioClip happySound; 
@@ -31,6 +32,7 @@ public class SoundManager : MonoBehaviour
     void Start()
     {
         thisAudio = GetComponent<AudioSource>();
+        backgroundMusicSource = GetComponent<AudioSource>();
     }
 
     public void MakeEnemyAdvanceSound()
@@ -58,33 +60,32 @@ public class SoundManager : MonoBehaviour
 
     public void StartTheMusic()
     {
-        backgroundMusic.Play();
+        if (backgroundMusic != null && backgroundMusicSource != null)
+        {
+            backgroundMusicSource.clip = backgroundMusic;
+            backgroundMusicSource.Play();
+        }
     }
 
     public void StopTheMusic()
     {
-        backgroundMusic.Stop();
+        if (backgroundMusicSource != null)
+        {
+            backgroundMusicSource.Stop();
+        }
     }
     
     public void StartBossMusic()
     {
-        if (bossMusic != null)
+        if (bossMusic != null && backgroundMusicSource != null)
         {
-            backgroundMusic.clip = bossMusic;
-            backgroundMusic.Play();
+            backgroundMusicSource.clip = bossMusic;
+            backgroundMusicSource.Play();
         }
     }
 
     public void PlayerExplosionSequence()
     {
-        StopTheMusic();
-
-        AudioSource[] audioSources = GetComponentsInChildren<AudioSource>();
-        foreach (AudioSource childSource in audioSources)
-        {
-            childSource.Stop();
-        }
-
         thisAudio.PlayOneShot(playerExplosion);
     }
 }
