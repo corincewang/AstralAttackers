@@ -53,6 +53,7 @@ MonoBehaviour:
   messageOverlay: {fileID: 642301632000444275}
   scoreDisplay: {fileID: 5843735565285038944}
   livesDisplay: {fileID: 8480349626529918897}
+  gameOverButton: {fileID: 0}
   currentLevel: Level01
 --- !u!1 &4462138224889570226
 GameObject:

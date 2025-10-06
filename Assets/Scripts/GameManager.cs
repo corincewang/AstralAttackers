@@ -27,7 +27,6 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreDisplay;
     public TextMeshProUGUI livesDisplay;
 
-    // level info
     public string currentLevel;
 
     void Awake()
@@ -52,10 +51,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if (state == GameState.Menu && (Input.GetKeyDown(KeyCode.S)))
-        // {
-        //     StartANewGame();
-        // }
+
     }
 
     private void StartANewGame()
@@ -230,13 +226,19 @@ public class GameManager : MonoBehaviour
         if (messageOverlay)
         {
             messageOverlay.enabled = true;
-            messageOverlay.text = "You Win! \nFinal Score: " + score + "\nPress R to Restart";
+            messageOverlay.text = "You Win! \nScore: " + score;
         }
 
-        yield return null;
+        yield return new WaitForSeconds(2f);
     
         StartCoroutine(RoundWin());
     }
+    
+    public void GoToMainMenu()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MenuScene");
+    }
+    
 
     private IEnumerator GameOverLoseState()
     {
@@ -245,15 +247,12 @@ public class GameManager : MonoBehaviour
         if (messageOverlay)
         {
             messageOverlay.enabled = true;
-            messageOverlay.text = "Game Over! \nFinal Score: " + score + "\nPress R to Restart";
+            messageOverlay.text = "Game Over! \nScore: " + score;
         }
 
-        while (!Input.GetKeyDown(KeyCode.R))
-        {
-            yield return null;
-        }
-
-        StartANewGame();
+        yield return new WaitForSeconds(5f);
+        
+        UnityEngine.SceneManagement.SceneManager.LoadScene("GameOverScene");
     }
 
     private IEnumerator OopsState()

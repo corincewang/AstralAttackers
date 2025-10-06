@@ -16,7 +16,15 @@ public class SoundManager : MonoBehaviour
     private AudioSource thisAudio;
     private void Awake()
     {
-        Steve = this;
+        if (Steve)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Steve = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

@@ -5,9 +5,7 @@ public class MenuScript : MonoBehaviour
 {
     void Start()
     {
-        if (GameManager.Gary){
-            Destroy(GameManager.Gary.gameObject);
-        }
+
     }
     public void btn_StartTheGame()
     {
