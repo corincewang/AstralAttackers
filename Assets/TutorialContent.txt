@@ -1,0 +1,5 @@
+HOW TO PLAY ASTRAL ATTACKERS
+
+Welcome to Astral Attackers! Your mission is to save the galaxy by defeating all enemies across 3 challenging levels. Use WASD keys to move your spaceship and press SPACEBAR to shoot bullets at the invading enemies. Destroy enemies to earn points and avoid their bullets and bombs to stay alive. Each level features different enemy patterns - Level 1 has basic enemies, Level 2 introduces faster enemies with more complex attack patterns, and Level 3 culminates in an epic boss battle!
+
+The final boss requires a special strategy to defeat. First, you must destroy the boss's sword by shooting it multiple times. Once the sword is destroyed, target the weak spot - you'll see it pulsing red and yellow to draw your attention. After hitting the weak spot 3 times, you can finally attack the main body. Be careful though, the boss will throw bombs at you throughout the fight! Stay mobile, time your shots wisely, and watch for enemy patterns. Good luck, space pilot - the galaxy is counting on you!

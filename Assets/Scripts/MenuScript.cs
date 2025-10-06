@@ -13,4 +13,14 @@ public class MenuScript : MonoBehaviour
     {
         SceneManager.LoadScene("Level01");
     }
+    
+    public void btn_GoToTutorial()
+    {
+        SceneManager.LoadScene("TutorialScene");
+    }
+    
+    public void btn_GoBackToMenu()
+    {
+        SceneManager.LoadScene("MenuScene");
+    }
 }
