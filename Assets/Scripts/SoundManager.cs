@@ -19,7 +19,6 @@ public class SoundManager : MonoBehaviour
     {
         if (Steve && Steve != this)
         {
-            Debug.Log("Destroying duplicate SoundManager");
             Destroy(this.gameObject);
         }
         else
