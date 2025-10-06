@@ -5,6 +5,11 @@ public class EnemyScript : MonoBehaviour
 {
     public int scoreValue = 10;
     public GameObject bombPrefab;
+    
+    [HeaderAttribute("Health System")]
+    public int maxHealth = 1;
+    public int currentHealth;
+    public bool isTypeC = false;
 
     [HeaderAttribute("Enemy Swap Frames")]
     public GameObject enemyFrame1;
@@ -23,6 +28,9 @@ public class EnemyScript : MonoBehaviour
         enemyFrame1.SetActive(true);
         enemyFrame2.SetActive(false);
         enemyFrameExplode.SetActive(false);
+        
+        // Initialize health
+        currentHealth = maxHealth;
     }
 
     // Update is called once per frame
@@ -92,6 +100,24 @@ public class EnemyScript : MonoBehaviour
             //destroy bullet immediately
             Destroy(collision.gameObject);
 
+            TakeDamage();
+        }
+    }
+    
+    private void TakeDamage()
+    {
+        currentHealth--;
+        
+        if (isTypeC && currentHealth > 0)
+        {
+            ColorScript colorScript = GetComponent<ColorScript>();
+            if (colorScript != null)
+            {
+                colorScript.ChangeToDamagedColor();
+            }
+        }
+        else
+        {
             GameManager.Gary.AddScore(scoreValue);
             Destroy(this.gameObject, 0.2f);
 
